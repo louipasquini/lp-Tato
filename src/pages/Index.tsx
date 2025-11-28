@@ -163,8 +163,8 @@ const Index = () => {
 
       {/* Seção 7 Dias Grátis */}
       <section className="py-20 px-4 bg-gradient-to-b from-primary/5 to-background" id="free-test">
-        <div className="container mx-auto max-w-4xl">
-          <div className="glass-card p-12 rounded-[--radius] border-primary/50 glow-primary text-center">
+  <div className="container mx-auto max-w-4xl">
+    <div className="glass-card p-8 rounded-[--radius] border-primary/50 glow-primary text-center overflow-hidden">
             <div className="inline-block mb-6 px-6 py-3 rounded-full bg-primary/20 border border-primary/50 text-primary text-lg font-bold">
               🎁 OFERTA ESPECIAL
             </div>
@@ -195,16 +195,21 @@ const Index = () => {
               </div>
             </div>
             
-            <Button 
-              size="lg" 
-              className="mt-8 text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105"
-            >
-              <Sparkles className="mr-2 h-5 w-5" />
-              COMEÇAR MEUS 7 DIAS GRÁTIS
-            </Button>
-          </div>
-        </div>
-      </section>
+            <Button
+  size="lg"
+  className="mt-8 text-lg px-6 py-7 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105 max-w-full whitespace-normal break-normal leading-[1.3]"
+>
+  <Sparkles className="mr-2 h-5 w-5" />
+  COMEÇAR MEUS 7 DIAS GRÁTIS
+</Button>
+
+
+
+
+
+    </div>
+  </div>
+</section>
 
       {/* Seção Preços */}
       <section className="py-20 px-4 bg-gradient-to-b from-card/30 to-background">
