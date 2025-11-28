@@ -51,7 +51,7 @@ const Index = () => {
           <div className="flex flex-wrap gap-6 justify-center text-sm text-muted-foreground animate-fade-in animation-delay-600">
             <span className="flex items-center gap-2">🔒 Privacidade Blindada</span>
             <span className="flex items-center gap-2">⚡ Instalação em 2 cliques</span>
-            <span className="flex items-center gap-2">🇧🇷 Feito no PunkLab</span>
+            <span className="flex items-center gap-2">🇧🇷 Feito na PunkLab</span>
           </div>
         </div>
       </section>
