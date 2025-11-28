@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 248 18% 7%;
+    --foreground: 210 20% 98%;
+
+    --card: 248 14% 8%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 248 18% 7%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 258 90% 66%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 248 14% 8%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 217 19% 35%;
+    --muted-foreground: 215 16% 58%;
+
+    --accent: 258 90% 66%;
+    --accent-foreground: 210 20% 98%;
+
+    --success: 158 64% 52%;
+    --success-foreground: 210 20% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 0 0% 100% / 0.08;
+    --input: 0 0% 100% / 0.08;
+    --ring: 258 90% 66%;
+
+    --radius: 1.25rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(258 90% 66%), hsl(270 90% 70%));
+    --gradient-glow: 0 0 40px hsl(258 90% 66% / 0.4);
+    --shadow-glow: 0 8px 32px hsl(258 90% 66% / 0.3);
+    
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    @apply bg-background text-foreground font-outfit antialiased;
+    font-family: 'Outfit', sans-serif;
+    overflow-x: hidden; /* <- evita overflow horizontal */
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-md border border-border;
+  }
+  
+  .glow-primary {
+    box-shadow: var(--gradient-glow);
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+  
+  .animation-delay-600 {
+    animation-delay: 0.6s;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------- */
+/* CORREÇÃO DO PROBLEMA MOBILE   */
+/* ----------------------------- */
+
+#root {
+  width: 100%; /* <- seguro, evita vazamento horizontal */
+}
+
+nav {
+  width: 100%;
+  overflow-x: hidden; /* protege caso algo interno estoure */
+}
+
+.icondisplay {
+    display: flex;
+}
+
+.iconbottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+html {
+    scroll-behavior: smooth;
+  }
+  
