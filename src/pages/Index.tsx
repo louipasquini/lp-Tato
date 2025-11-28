@@ -317,16 +317,16 @@ const Index = () => {
     {/* Redes sociais */}
     <div className="flex justify-center gap-6 text-muted-foreground">
       <a href="https://instagram.com/punklabcc" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-        <img src="/icons/instagram.svg" alt="Instagram" className="w-6 h-6" />
+        <img src="instagram.svg" alt="Instagram" className="w-6 h-6" />
       </a>
       <a href="https://www.linkedin.com/company/punklab/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-        <img src="/icons/linkedin.svg" alt="LinkedIn" className="w-6 h-6" />
+        <img src="linkedin.svg" alt="LinkedIn" className="w-6 h-6" />
       </a>
       <a href="https://behance.net/louipasquini" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-        <img src="/icons/behance.svg" alt="Behance" className="w-6 h-6" />
+        <img src="behance.svg" alt="Behance" className="w-6 h-6" />
       </a>
       <a href="https://github.com/louipasquini" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
-        <img src="/icons/github.svg" alt="GitHub" className="w-6 h-6" />
+        <img src="github.svg" alt="GitHub" className="w-6 h-6" />
       </a>
     </div>
     <p className="">
