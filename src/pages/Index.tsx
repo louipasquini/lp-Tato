@@ -305,14 +305,36 @@ const Index = () => {
 
       {/* Footer */}
       <footer className="py-12 px-4 border-t border-border/50">
-        <div className="container mx-auto max-w-5xl text-center">
-          <div className="text-3xl font-bold mb-2 iconbottom"><img src="/icon.png" alt="Tato logo" className="w-8 h-8 object-contain" />TATO</div>
-          <p className="text-muted-foreground mb-6">Sua melhor versão, em texto.</p>
-          <p className="text-sm text-muted-foreground">
-            Desenvolvido com caos e código pela <span className="text-primary font-semibold">PunkLab - cAos CriativO</span>
-          </p>
-        </div>
-      </footer>
+  <div className="container mx-auto max-w-5xl text-center space-y-4">
+    {/* Logo + site */}
+    <a href="#free-test" rel="noopener noreferrer" className="inline-block text-3xl font-bold mb-2 iconbottom">
+      <img src="/icon.png" alt="PunkLab logo" className="w-8 h-8 inline-block mr-2 object-contain" />
+      TATO
+    </a>
+
+    <p className="text-muted-foreground mb-2">Sua melhor versão, em texto.</p>
+
+    {/* Redes sociais */}
+    <div className="flex justify-center gap-6 text-muted-foreground">
+      <a href="https://instagram.com/punklabcc" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+        <img src="/icons/instagram.svg" alt="Instagram" className="w-6 h-6" />
+      </a>
+      <a href="https://www.linkedin.com/company/punklab/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+        <img src="/icons/linkedin.svg" alt="LinkedIn" className="w-6 h-6" />
+      </a>
+      <a href="https://behance.net/louipasquini" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+        <img src="/icons/behance.svg" alt="Behance" className="w-6 h-6" />
+      </a>
+      <a href="https://github.com/louipasquini" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">
+        <img src="/icons/github.svg" alt="GitHub" className="w-6 h-6" />
+      </a>
+    </div>
+    <p className="">
+      Desenvolvido com caos e código pela <a href="https://punklab.com.br" target="_blank" rel="noopener noreferrer" className="text-primary font-semibold">PunkLab - cAos CriativO</a>
+    </p>
+  </div>
+</footer>
+
     </div>
   );
 };
