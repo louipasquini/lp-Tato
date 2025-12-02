@@ -5,18 +5,17 @@ import { Loader2 } from "lucide-react";
 const Checkout = () => {
   const [searchParams] = useSearchParams();
   const plan = searchParams.get("plan") || "profissional";
-  
-  // URL do checkout externo a partir da variável de ambiente
-  const checkoutUrl = import.meta.env.VITE_CHECKOUT_URL;
+  const checkoutUrl = "https://buy.stripe.com/";
 
   useEffect(() => {
     if (checkoutUrl) {
-      // Redireciona para o checkout externo, passando o plano como parâmetro se necessário
-      const url = new URL(checkoutUrl);
-      if (plan) {
-        url.searchParams.set("plan", plan);
+      if (plan=="essencial") {
+        let productCode = "14A3cobt3gs32Cb4kgew802";
+        window.location.href = checkoutUrl + productCode;
+      } else if (plan=="profissional") {
+        let productCode = "7sY5kw40BejV5On5okew801";
+        window.location.href = checkoutUrl + productCode;
       }
-      window.location.href = url.toString();
     } else {
       console.error("VITE_CHECKOUT_URL não está configurada");
     }
