@@ -1,33 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
-import { API_ENDPOINTS } from "@/lib/api";
 
-// URL Base da API - usa a mesma lógica do api.ts
-const getApiBase = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  const defaultBase = "https://tatodb.vercel.app";
-  
-  if (apiUrl && apiUrl.includes('/tato/v2')) {
-    try {
-      const url = new URL(apiUrl);
-      return `${url.origin}/tato/v2`;
-    } catch {
-      return apiUrl.replace(/\/tato\/v2.*$/, '') + '/tato/v2' || `${defaultBase}/tato/v2`;
-    }
-  }
-  
-  if (apiUrl && !apiUrl.includes('/tato/v2')) {
-    return `${apiUrl}/tato/v2`;
-  }
-  
-  if (apiBaseUrl) {
-    return `${apiBaseUrl}/tato/v2`;
-  }
-  
-  return `${defaultBase}/tato/v2`;
-};
-
-const API_BASE = getApiBase();
+// URL Base da API
+const API_BASE = "https://tatodb.vercel.app/tato/v2";
 
 // Tipagem dos dados que vêm da API do Dashboard
 interface DashboardData {
@@ -43,6 +17,7 @@ interface DashboardData {
     percentage: number;
   };
   account: {
+    id: string; // <--- ADICIONADO: Campo essencial para o Checkout
     email: string;
     name: string | null;
   };
@@ -55,11 +30,10 @@ interface User {
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (token: string) => void;
+  login: (token: string) => Promise<void>;
   logout: () => void;
   user: User | null;
   token: string | null;
-  // Novos campos para o Dashboard
   dashboardData: DashboardData | null;
   isLoading: boolean;
   refreshDashboard: () => Promise<void>;
@@ -72,14 +46,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
   
-  // Estado para dados do Dashboard
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Inicia como true para evitar flash de conteúdo
 
-  // Função para buscar dados atualizados do servidor
   const refreshDashboard = useCallback(async () => {
     const currentToken = localStorage.getItem("tato_token");
-    if (!currentToken) return;
+    if (!currentToken) {
+        setIsLoading(false);
+        return;
+    }
 
     setIsLoading(true);
     try {
@@ -95,7 +70,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const data = await response.json();
         setDashboardData(data);
         
-        // Atualiza info básica do usuário também
         if (data.account) {
             setUser({ 
                 email: data.account.email, 
@@ -103,9 +77,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             });
         }
       } else {
-        console.error("Erro ao buscar dashboard:", response.status);
         if (response.status === 401) {
-            logout(); // Token expirou
+            logout();
         }
       }
     } catch (error) {
@@ -115,12 +88,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
-  const login = (newToken: string) => {
+  const login = async (newToken: string) => {
     localStorage.setItem("tato_token", newToken);
     setToken(newToken);
     setIsAuthenticated(true);
-    // Ao logar, já tentamos buscar os dados do usuário
-    setTimeout(refreshDashboard, 100); 
+    await refreshDashboard();
   };
 
   const logout = () => {
@@ -131,16 +103,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setDashboardData(null);
   };
 
-  // Verifica token ao carregar a página
   useEffect(() => {
     const storedToken = localStorage.getItem("tato_token");
     if (storedToken) {
       setToken(storedToken);
       setIsAuthenticated(true);
-      // Opcional: buscar dados ao recarregar a página
-      // refreshDashboard(); 
+      refreshDashboard();
+    } else {
+      setIsLoading(false);
     }
-  }, []); // Removemos refreshDashboard da dependência para evitar loop se não usar useCallback corretamente fora
+  }, [refreshDashboard]);
 
   return (
     <AuthContext.Provider value={{ 
