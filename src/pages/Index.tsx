@@ -204,13 +204,16 @@ const Index = () => {
               </div>
             </div>
             
-            <a href="/login" rel="noopener noreferrer"><Button
-  size="lg"
-  className="mt-8 text-lg px-6 py-10 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105 max-w-full whitespace-normal break-normal leading-[1.3]"
->
-  <Sparkles className="mr-2 h-5 w-5" />
-  COMEÇAR MEUS 7 DIAS GRÁTIS
-</Button></a>
+            <Button
+              size="lg"
+              className="mt-8 text-lg px-6 py-10 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105 max-w-full whitespace-normal break-normal leading-[1.3]"
+              asChild
+            >
+              <Link to="/login">
+                <Sparkles className="mr-2 h-5 w-5" />
+                COMEÇAR MEUS 7 DIAS GRÁTIS
+              </Link>
+            </Button>
 
 
 
