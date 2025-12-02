@@ -66,13 +66,53 @@ Este projeto requer as seguintes variáveis de ambiente. Crie um arquivo `.env` 
 
 ```env
 # URL base da API (opcional, padrão: https://tatodb.vercel.app)
+# Suporta VITE_API_URL ou VITE_API_BASE_URL
+VITE_API_URL=https://tatodb.vercel.app/tato/v2/auth
+# OU
 VITE_API_BASE_URL=https://tatodb.vercel.app
+
+# Google OAuth Client ID (obrigatório para login com Google)
+VITE_GOOGLE_CLIENT_ID=seu-google-client-id.apps.googleusercontent.com
 
 # URL do checkout externo (obrigatório)
 VITE_CHECKOUT_URL=https://seu-checkout-externo.com
 ```
 
 **Importante**: No Vite, todas as variáveis de ambiente expostas ao cliente devem começar com `VITE_`.
+
+### Configuração no Vercel
+
+No Vercel, configure as variáveis de ambiente em:
+**Settings → Environment Variables**
+
+Certifique-se de adicionar para todos os ambientes (Production, Preview, Development).
+
+### Troubleshooting - Login com Google
+
+Se o login com Google não funcionar em produção:
+
+1. **Verifique se `VITE_GOOGLE_CLIENT_ID` está configurada no Vercel**
+   - A variável deve estar disponível em todos os ambientes
+   - Após adicionar, faça um novo deploy
+
+2. **Verifique as URLs autorizadas no Google Console**
+   - Acesse [Google Cloud Console](https://console.cloud.google.com/)
+   - Vá em **APIs & Services → Credentials**
+   - Edite seu OAuth 2.0 Client ID
+   - Adicione suas URLs de produção em **Authorized JavaScript origins**:
+     - `https://seu-dominio.vercel.app`
+     - `https://seu-dominio.com` (se tiver domínio customizado)
+   - Adicione em **Authorized redirect URIs**:
+     - `https://seu-dominio.vercel.app`
+     - `https://seu-dominio.com`
+
+3. **Verifique o console do navegador**
+   - Abra as DevTools (F12)
+   - Verifique se há erros relacionados ao Google Sign-In
+   - Procure por mensagens como "VITE_GOOGLE_CLIENT_ID não está configurada"
+
+4. **Limpe o cache do navegador**
+   - O Vite pode ter cacheado uma versão antiga sem a variável
 
 ### Endpoints da API
 

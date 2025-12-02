@@ -87,45 +87,104 @@ const Login = () => {
 
   // Inicializa o Google Sign-In
   useEffect(() => {
+    if (!GOOGLE_CLIENT_ID) {
+      console.error("VITE_GOOGLE_CLIENT_ID não está configurada");
+      setError("Configuração do Google Sign-In não encontrada. Por favor, recarregue a página.");
+      return;
+    }
+
     /* global google */
     // @ts-ignore
-    if (typeof window !== 'undefined' && !window.google) {
+    const initializeGoogle = () => {
+      // @ts-ignore
+      if (!window.google || !window.google.accounts) {
+        console.warn("Google Sign-In script ainda não carregou completamente");
+        // Tenta novamente após um delay
+        setTimeout(() => {
+          // @ts-ignore
+          if (window.google && window.google.accounts) {
+            initializeGoogle();
+          }
+        }, 500);
+        return;
+      }
+
+      const googleBtn = document.getElementById("googleBtn");
+      if (!googleBtn) {
+        console.warn("Elemento googleBtn não encontrado, tentando novamente...");
+        // Tenta novamente após o componente renderizar
+        setTimeout(initializeGoogle, 200);
+        return;
+      }
+
+      try {
+        // Limpa o elemento antes de renderizar novamente
+        googleBtn.innerHTML = '';
+        
+        // @ts-ignore
+        window.google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleGoogleCallback,
+          auto_select: false,
+          cancel_on_tap_outside: true
+        });
+        
+        // @ts-ignore
+        window.google.accounts.id.renderButton(googleBtn, { 
+          theme: "outline", 
+          size: "large", 
+          type: "standard",
+          text: isLogin ? "signin_with" : "signup_with",
+          width: "400" 
+        });
+      } catch (e) {
+        console.error("Erro ao inicializar botão Google:", e);
+        setError("Erro ao carregar botão do Google. Por favor, recarregue a página.");
+      }
+    };
+
+    // @ts-ignore
+    if (typeof window !== 'undefined' && window.google && window.google.accounts) {
+      // Google já está carregado
+      setTimeout(initializeGoogle, 100);
+    } else {
+      // Verifica se o script já existe
+      const existingScript = document.querySelector('script[src="https://accounts.google.com/gsi/client"]');
+      if (existingScript) {
+        // Script já existe, aguarda carregar
+        existingScript.addEventListener('load', () => {
+          setTimeout(initializeGoogle, 100);
+        });
+        // @ts-ignore
+        if (window.google) {
+          setTimeout(initializeGoogle, 100);
+        }
+      } else {
+        // Carrega o script do Google
         const script = document.createElement("script");
         script.src = "https://accounts.google.com/gsi/client";
         script.async = true;
         script.defer = true;
-        script.onload = initializeGoogle;
-        document.body.appendChild(script);
-    } else {
-        initializeGoogle();
+        script.onload = () => {
+          // Aguarda um pouco para garantir que o Google está totalmente inicializado
+          setTimeout(initializeGoogle, 200);
+        };
+        script.onerror = () => {
+          console.error("Erro ao carregar script do Google Sign-In");
+          setError("Não foi possível carregar o Google Sign-In. Verifique sua conexão.");
+        };
+        document.head.appendChild(script);
+      }
     }
 
-    function initializeGoogle() {
-        if (!GOOGLE_CLIENT_ID) return;
-        // @ts-ignore
-        if (window.google) {
-            try {
-                // @ts-ignore
-                window.google.accounts.id.initialize({
-                    client_id: GOOGLE_CLIENT_ID,
-                    callback: handleGoogleCallback
-                });
-                // @ts-ignore
-                window.google.accounts.id.renderButton(
-                    document.getElementById("googleBtn"),
-                    { 
-                        theme: "outline", 
-                        size: "large", 
-                        type: "standard",
-                        text: isLogin ? "signin_with" : "signup_with",
-                        width: "400" 
-                    }
-                );
-            } catch (e) {
-                console.error("Erro ao inicializar botão Google:", e);
-            }
-        }
-    }
+    // Cleanup
+    return () => {
+      const googleBtn = document.getElementById("googleBtn");
+      if (googleBtn) {
+        googleBtn.innerHTML = '';
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogin]);
 
   // @ts-ignore
