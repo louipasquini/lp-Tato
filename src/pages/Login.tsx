@@ -192,7 +192,10 @@ const Login = () => {
     setIsLoading(true);
     setError("");
     try {
-      const res = await fetch(API_ENDPOINTS.AUTH.GOOGLE, {
+      const googleEndpoint = API_ENDPOINTS.AUTH.GOOGLE;
+      console.log("🔐 Fazendo requisição para Google OAuth:", googleEndpoint);
+      
+      const res = await fetch(googleEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
@@ -201,9 +204,15 @@ const Login = () => {
         })
       });
       
+      console.log("📡 Resposta da API:", res.status, res.statusText, res.url);
+      
       const data = await res.json();
       
       if (!res.ok) {
+        if (res.status === 404) {
+          console.error("❌ Endpoint não encontrado (404):", googleEndpoint);
+          throw new Error("Endpoint da API não encontrado. Verifique a configuração da URL da API.");
+        }
         if (res.status === 401) throw new Error("Acesso negado pelo Google.");
         throw new Error(data.error || "Falha no login com Google");
       }

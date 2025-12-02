@@ -1,7 +1,33 @@
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from "react";
+import { API_ENDPOINTS } from "@/lib/api";
 
-// URL Base da API
-const API_BASE = "https://tatodb.vercel.app/tato/v2";
+// URL Base da API - usa a mesma lógica do api.ts
+const getApiBase = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  const defaultBase = "https://tatodb.vercel.app";
+  
+  if (apiUrl && apiUrl.includes('/tato/v2')) {
+    try {
+      const url = new URL(apiUrl);
+      return `${url.origin}/tato/v2`;
+    } catch {
+      return apiUrl.replace(/\/tato\/v2.*$/, '') + '/tato/v2' || `${defaultBase}/tato/v2`;
+    }
+  }
+  
+  if (apiUrl && !apiUrl.includes('/tato/v2')) {
+    return `${apiUrl}/tato/v2`;
+  }
+  
+  if (apiBaseUrl) {
+    return `${apiBaseUrl}/tato/v2`;
+  }
+  
+  return `${defaultBase}/tato/v2`;
+};
+
+const API_BASE = getApiBase();
 
 // Tipagem dos dados que vêm da API do Dashboard
 interface DashboardData {

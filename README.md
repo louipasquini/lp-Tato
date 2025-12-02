@@ -66,10 +66,13 @@ Este projeto requer as seguintes variáveis de ambiente. Crie um arquivo `.env` 
 
 ```env
 # URL base da API (opcional, padrão: https://tatodb.vercel.app)
-# Suporta VITE_API_URL ou VITE_API_BASE_URL
-VITE_API_URL=https://tatodb.vercel.app/tato/v2/auth
-# OU
+# IMPORTANTE: Use apenas a BASE, sem o caminho /tato/v2/auth
+# O código adiciona o caminho automaticamente
 VITE_API_BASE_URL=https://tatodb.vercel.app
+
+# OU se preferir usar VITE_API_URL, pode ser:
+# - Apenas a base: https://tatodb.vercel.app
+# - Com caminho completo: https://tatodb.vercel.app/tato/v2/auth (o código detecta e ajusta)
 
 # Google OAuth Client ID (obrigatório para login com Google)
 VITE_GOOGLE_CLIENT_ID=seu-google-client-id.apps.googleusercontent.com
@@ -77,6 +80,12 @@ VITE_GOOGLE_CLIENT_ID=seu-google-client-id.apps.googleusercontent.com
 # URL do checkout externo (obrigatório)
 VITE_CHECKOUT_URL=https://seu-checkout-externo.com
 ```
+
+**⚠️ IMPORTANTE sobre VITE_API_BASE_URL:**
+- Use apenas a URL base: `https://tatodb.vercel.app`
+- **NÃO** inclua o caminho `/tato/v2/auth` na variável
+- O código adiciona o caminho automaticamente
+- Se você colocar `https://tatodb.vercel.app/tato/v2/auth`, o código detecta e ajusta, mas é melhor usar apenas a base
 
 **Importante**: No Vite, todas as variáveis de ambiente expostas ao cliente devem começar com `VITE_`.
 
