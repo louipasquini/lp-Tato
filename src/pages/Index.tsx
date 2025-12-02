@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, DollarSign, Lightbulb, Check, Sparkles } from "lucide-react";
 
@@ -7,10 +8,18 @@ const Index = () => {
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold icondisplay"><img src="/icon.png" alt="Tato logo" className="w-8 h-8 object-contain" />TATO</div>
-          <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary">
-            Instalar no Chrome
-          </Button>
+          <Link to="/" className="text-2xl font-bold icondisplay flex items-center gap-2">
+            <img src="/icon.png" alt="Tato logo" className="w-8 h-8 object-contain" />
+            TATO
+          </Link>
+          <div className="flex items-center gap-3">
+            <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary" asChild>
+              <Link to="/login">Entrar</Link>
+            </Button>
+            <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary">
+              Instalar no Chrome
+            </Button>
+          </div>
         </div>
       </nav>
 
@@ -255,8 +264,9 @@ const Index = () => {
                 variant="outline" 
                 size="lg" 
                 className="w-full border-primary/50 hover:bg-primary/10 hover:border-primary"
+                asChild
               >
-                QUERO TER TATO
+                <Link to="/login?plan=essencial">QUERO TER TATO</Link>
               </Button>
             </div>
             
@@ -295,8 +305,9 @@ const Index = () => {
               <Button 
                 size="lg" 
                 className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105"
+                asChild
               >
-                QUERO VENDER MAIS
+                <Link to="/login?plan=profissional">QUERO VENDER MAIS</Link>
               </Button>
             </div>
           </div>

@@ -60,6 +60,30 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Variáveis de Ambiente
+
+Este projeto requer as seguintes variáveis de ambiente. Crie um arquivo `.env` na raiz do projeto:
+
+```env
+# URL base da API (opcional, padrão: https://tatodb.vercel.app)
+VITE_API_BASE_URL=https://tatodb.vercel.app
+
+# URL do checkout externo (obrigatório)
+VITE_CHECKOUT_URL=https://seu-checkout-externo.com
+```
+
+**Importante**: No Vite, todas as variáveis de ambiente expostas ao cliente devem começar com `VITE_`.
+
+### Endpoints da API
+
+O projeto usa os seguintes endpoints da API:
+
+- **Autenticação**: `{VITE_API_BASE_URL}/tato/v2/auth`
+  - Login: `POST /login`
+  - Registro: `POST /register`
+  - Google OAuth: `POST /google`
+- **Dashboard**: `GET {VITE_API_BASE_URL}/tato/v2/user/dashboard`
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/9294b324-8b3a-40d2-8506-e97997acf9f4) and click on Share -> Publish.
