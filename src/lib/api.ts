@@ -1,6 +1,3 @@
-// Configuração centralizada da API
-// Suporta tanto VITE_API_URL quanto VITE_API_BASE_URL para compatibilidade com Vercel
-
 // Helper para evitar erros em ambientes onde import.meta.env pode ser undefined
 const getEnv = () => {
   try {
@@ -42,12 +39,6 @@ const getApiBaseUrl = () => {
 };
 
 const API_BASE_URL = getApiBaseUrl();
-
-// Log para debug em desenvolvimento
-const env = getEnv();
-if (env.DEV) {
-  console.log("API Base URL:", API_BASE_URL);
-}
 
 // Endpoints da API
 export const API_ENDPOINTS = {
