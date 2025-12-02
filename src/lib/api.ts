@@ -1,25 +1,33 @@
 // Configuração centralizada da API
 // Suporta tanto VITE_API_URL quanto VITE_API_BASE_URL para compatibilidade com Vercel
-// VITE_API_URL pode ser a URL completa (com /tato/v2/auth) ou apenas a base
-// VITE_API_BASE_URL é sempre apenas a base (sem caminho)
+
+// Helper para evitar erros em ambientes onde import.meta.env pode ser undefined
+const getEnv = () => {
+  try {
+    // @ts-ignore
+    return import.meta.env || {};
+  } catch {
+    return {};
+  }
+};
+
 const getApiBaseUrl = () => {
-  const apiUrl = import.meta.env.VITE_API_URL;
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  const env = getEnv();
+  const apiUrl = env.VITE_API_URL;
+  const apiBaseUrl = env.VITE_API_BASE_URL;
   const defaultBase = "https://tatodb.vercel.app";
   
-  // Se VITE_API_URL está definida e contém o caminho completo, usa ela diretamente
+  // Se VITE_API_URL está definida e contém o caminho completo
   if (apiUrl && apiUrl.includes('/tato/v2')) {
-    // Remove o caminho para obter apenas a base
     try {
       const url = new URL(apiUrl);
       return url.origin;
     } catch {
-      // Se não for uma URL válida, assume que é apenas a base
       return apiUrl.replace(/\/tato\/v2.*$/, '') || defaultBase;
     }
   }
   
-  // Se VITE_API_URL é apenas a base (sem caminho), usa ela
+  // Se VITE_API_URL é apenas a base
   if (apiUrl && !apiUrl.includes('/tato/v2')) {
     return apiUrl;
   }
@@ -36,10 +44,9 @@ const getApiBaseUrl = () => {
 const API_BASE_URL = getApiBaseUrl();
 
 // Log para debug em desenvolvimento
-if (import.meta.env.DEV) {
+const env = getEnv();
+if (env.DEV) {
   console.log("API Base URL:", API_BASE_URL);
-  console.log("VITE_API_URL:", import.meta.env.VITE_API_URL);
-  console.log("VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 }
 
 // Endpoints da API
@@ -54,12 +61,10 @@ export const API_ENDPOINTS = {
     DASHBOARD: `${API_BASE_URL}/tato/v2/user/dashboard`,
     DELETE: `${API_BASE_URL}/tato/v2/user/delete`,
   },
+  PAYMENT: {
+    PORTAL: `${API_BASE_URL}/tato/v2/payment/customer-portal`,
+  }
 };
-
-// Log dos endpoints em desenvolvimento
-if (import.meta.env.DEV) {
-  console.log("API Endpoints:", API_ENDPOINTS);
-}
 
 // Função auxiliar para fazer requisições autenticadas
 export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
@@ -69,7 +74,7 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
     "Content-Type": "application/json",
     ...(token && { Authorization: `Bearer ${token}` }),
     ...options.headers,
-  };
+  } as HeadersInit;
 
   const response = await fetch(url, {
     ...options,
@@ -81,13 +86,13 @@ export const fetchWithAuth = async (url: string, options: RequestInit = {}) => {
     throw new Error(error.error || `Erro na requisição: ${response.status}`);
   }
 
-  // Para DELETE, pode não ter corpo de resposta
+  // Para DELETE ou respostas vazias
   const contentType = response.headers.get("content-type");
   if (contentType && contentType.includes("application/json")) {
     return response.json();
   }
   
-  return null;
+  return true;
 };
 
 // Função para buscar dados do dashboard
@@ -101,6 +106,3 @@ export const deleteAccount = async () => {
     method: "DELETE",
   });
 };
-
-
-

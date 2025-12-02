@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useAuth } from "@/contexts/AuthContext";
-import { deleteAccount } from "@/lib/api";
+import { useAuth } from "../contexts/AuthContext";
+import { deleteAccount, API_ENDPOINTS, fetchWithAuth } from "../lib/api";
 import { 
   LogOut, 
   User, 
@@ -17,7 +17,9 @@ import {
   Calendar,
   Sparkles,
   Loader2,
-  Trash2
+  Trash2,
+  X,
+  ExternalLink
 } from "lucide-react";
 import {
   AlertDialog,
@@ -32,12 +34,16 @@ import {
 } from "@/components/ui/alert-dialog";
 
 const Dashboard = () => {
-  const { user, logout, dashboardData, isLoading, refreshDashboard } = useAuth();
+  const { user, token, logout, dashboardData, isLoading, refreshDashboard } = useAuth();
   const navigate = useNavigate();
+  
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showPlanSelector, setShowPlanSelector] = useState(false);
+  
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   
   const DELETE_CONFIRMATION_TEXT = "DELETAR MINHA CONTA";
 
@@ -47,7 +53,6 @@ const Dashboard = () => {
   }, []);
 
   // Mapeamento seguro dos dados da API para o Layout
-  // API retorna: planName, status, value, nextBillingDate, used, limit
   const subscriptionData = {
     plan: dashboardData?.subscription?.planName || "Carregando...",
     status: dashboardData?.subscription?.status || "...",
@@ -57,12 +62,29 @@ const Dashboard = () => {
     price: dashboardData?.subscription?.value || "R$ 0,00",
     
     messagesUsed: dashboardData?.usage?.used || 0,
-    messagesLimit: dashboardData?.usage?.limit || 1, // Evita divisão por zero
+    messagesLimit: dashboardData?.usage?.limit || 1, 
   };
 
-  const handleCancelSubscription = () => {
-    console.log("Cancelando assinatura...");
-    setShowCancelDialog(false);
+  const handleStripePortal = async () => {
+    setIsRedirecting(true);
+    try {
+      const response: any = await fetchWithAuth(API_ENDPOINTS.PAYMENT.PORTAL, {
+        method: "POST",
+      });
+      
+      if (response && response.url) {
+        window.location.href = response.url;
+      } else {
+        alert("Erro ao redirecionar para o Stripe.");
+        setIsRedirecting(false);
+        setShowCancelDialog(false);
+      }
+    } catch (error) {
+      console.error("Erro ao acessar portal:", error);
+      alert("Erro de conexão. Tente novamente.");
+      setIsRedirecting(false);
+      setShowCancelDialog(false);
+    }
   };
 
   const handleDeleteAccount = async () => {
@@ -73,10 +95,8 @@ const Dashboard = () => {
     setIsDeleting(true);
     try {
       await deleteAccount();
-      // Limpa o token e redireciona
       logout();
       navigate("/");
-      // Mostra mensagem de sucesso (opcional)
       alert("Sua conta foi deletada com sucesso.");
     } catch (error: any) {
       console.error("Erro ao deletar conta:", error);
@@ -93,7 +113,59 @@ const Dashboard = () => {
     : 0;
 
   return (
-    <div className="min-h-screen w-full bg-background text-foreground">
+    <div className="min-h-screen w-full bg-background text-foreground relative">
+      
+      {/* Modal de Seleção de Plano (Custom Overlay) */}
+      {showPlanSelector && (
+        <div className="fixed inset-0 z-[60] bg-background/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-card border border-border rounded-lg shadow-xl max-w-md w-full p-6 relative animate-in fade-in zoom-in-95 duration-200">
+            <button 
+              onClick={() => setShowPlanSelector(false)}
+              className="absolute right-4 top-4 text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="mb-6">
+              <h2 className="text-2xl font-bold mb-2">Alterar Plano</h2>
+              <p className="text-muted-foreground text-sm">Escolha o plano que melhor se adapta às suas necessidades.</p>
+            </div>
+            
+            <div className="space-y-3">
+              <Button 
+                variant="outline" 
+                className={`w-full justify-between h-auto py-4 px-4 border-2 ${subscriptionData.plan.includes('Essencial') ? 'border-primary bg-primary/5' : 'hover:border-primary/50'}`}
+                onClick={() => navigate("/checkout?plan=essencial")}
+              >
+                <div className="text-left">
+                  <div className="font-bold text-base">Plano Essencial</div>
+                  <div className="text-xs text-muted-foreground">Ideal para uso pessoal</div>
+                </div>
+                <div className="text-right">
+                  <div className="font-bold">R$ 19,90</div>
+                  <div className="text-[10px] text-muted-foreground">/mês</div>
+                </div>
+              </Button>
+
+              <Button 
+                variant="outline" 
+                className={`w-full justify-between h-auto py-4 px-4 border-2 ${subscriptionData.plan.includes('Profissional') ? 'border-primary bg-primary/5' : 'hover:border-primary/50'}`}
+                onClick={() => navigate("/checkout?plan=profissional")}
+              >
+                <div className="text-left">
+                  <div className="font-bold text-base">Plano Profissional</div>
+                  <div className="text-xs text-muted-foreground">Para uso intenso</div>
+                </div>
+                <div className="text-right">
+                  <div className="font-bold">R$ 39,90</div>
+                  <div className="text-[10px] text-muted-foreground">/mês</div>
+                </div>
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Navbar */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -238,12 +310,10 @@ const Dashboard = () => {
                 <Button 
                   variant="outline" 
                   className="w-full border-primary/50 hover:bg-primary/10 hover:border-primary"
-                  asChild
+                  onClick={() => setShowPlanSelector(true)}
                 >
-                  <Link to="/checkout">
-                    <Sparkles className="mr-2 h-4 w-4" />
-                    Alterar Plano
-                  </Link>
+                  <Sparkles className="mr-2 h-4 w-4" />
+                  Alterar Plano
                 </Button>
               </CardContent>
             </Card>
@@ -257,13 +327,13 @@ const Dashboard = () => {
                 Gerenciar Assinatura
               </CardTitle>
               <CardDescription>
-                Cancele sua assinatura a qualquer momento
+                Cancele sua assinatura ou gerencie seus dados de pagamento no Stripe
               </CardDescription>
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground mb-4">
                 Ao cancelar, você continuará tendo acesso até o final do período pago ({subscriptionData.nextBilling}). 
-                Não haverá reembolso para o período atual.
+                Você será redirecionado para o portal seguro do Stripe.
               </p>
               <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
                 <AlertDialogTrigger asChild>
@@ -271,24 +341,34 @@ const Dashboard = () => {
                     variant="destructive"
                     className="w-full sm:w-auto"
                   >
-                    Cancelar Assinatura
+                    Gerenciar / Cancelar
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Cancelar Assinatura?</AlertDialogTitle>
+                    <AlertDialogTitle>Acessar Portal do Cliente?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      Tem certeza que deseja cancelar sua assinatura? Você continuará tendo acesso 
-                      até {subscriptionData.nextBilling}, mas não será renovada automaticamente.
+                      Você será redirecionado para o portal seguro do Stripe, onde poderá cancelar sua assinatura, alterar seu cartão de crédito ou ver seu histórico de cobranças.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Manter Assinatura</AlertDialogCancel>
+                    <AlertDialogCancel>Voltar</AlertDialogCancel>
                     <AlertDialogAction
-                      onClick={handleCancelSubscription}
-                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      onClick={handleStripePortal}
+                      disabled={isRedirecting}
+                      className="bg-primary text-primary-foreground hover:bg-primary/90"
                     >
-                      Sim, Cancelar
+                      {isRedirecting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Redirecionando...
+                        </>
+                      ) : (
+                        <>
+                          <ExternalLink className="mr-2 h-4 w-4" />
+                          Ir para o Stripe
+                        </>
+                      )}
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
