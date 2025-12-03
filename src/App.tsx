@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Checkout from "./pages/Checkout";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import ThankYou from "./pages/ThankYou";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/privacidade" element={<Privacy />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/thank-you" element={<ThankYou />} />
             <Route
               path="/checkout"
               element={
