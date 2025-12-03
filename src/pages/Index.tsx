@@ -25,8 +25,15 @@ const Index = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
-        <div className="container mx-auto max-w-4xl text-center">
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden isolate">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 -z-10 w-full h-full">
+          <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-primary/30 rounded-full blur-[100px] animate-pulse" />
+          <div className="absolute top-[20%] right-[-5%] w-[400px] h-[400px] bg-purple-500/30 rounded-full blur-[100px] animate-pulse delay-700" />
+          <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-500/20 rounded-full blur-[120px] animate-pulse delay-1000" />
+          <div className="absolute top-[40%] left-[40%] w-[300px] h-[300px] bg-primary/20 rounded-full blur-[80px]" />
+        </div>
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
           <ScrollReveal animation="fade-up" delay={0}>
             <div className="inline-block mb-6 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/30 text-destructive text-sm font-medium">
               🔴 Evite um crime contra sua própria reputação.
