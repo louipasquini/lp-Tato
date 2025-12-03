@@ -97,6 +97,58 @@ const ThankYou = () => {
                             </div>
                         </div>
 
+                        {/* Passo 4 */}
+                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <span className="text-2xl font-bold text-primary">4</span>
+                            </div>
+                            <div className="flex-grow text-center md:text-left">
+                                <h3 className="text-xl font-bold mb-2">Escolha o modelo</h3>
+                                <p className="text-muted-foreground">
+                                    Selecione o modelo ideal (Diplomata, Fechador ou Clareza) para cada situação.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Passo 5 */}
+                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <span className="text-2xl font-bold text-primary">5</span>
+                            </div>
+                            <div className="flex-grow text-center md:text-left">
+                                <h3 className="text-xl font-bold mb-2">Escreva e envie</h3>
+                                <p className="text-muted-foreground">
+                                    Escreva seu rascunho e deixe o Tato polir suas palavras antes de enviar.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Passo 6 */}
+                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <span className="text-2xl font-bold text-primary">6</span>
+                            </div>
+                            <div className="flex-grow text-center md:text-left">
+                                <h3 className="text-xl font-bold mb-2">Controle total</h3>
+                                <p className="text-muted-foreground">
+                                    Você tem total controle para habilitar ou desabilitar o Tato quando preferir.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Passo 7 */}
+                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                                <span className="text-2xl font-bold text-primary">7</span>
+                            </div>
+                            <div className="flex-grow text-center md:text-left">
+                                <h3 className="text-xl font-bold mb-2">Gestão por contato</h3>
+                                <p className="text-muted-foreground">
+                                    Desative o Tato em conversas específicas (como com a família) e mantenha-o ativo para o trabalho.
+                                </p>
+                            </div>
+                        </div>
+
                         {/* Passo 4 - Aviso */}
                         <div className="glass-card p-8 rounded-[--radius] border-destructive/30 bg-destructive/5 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1200">
                             <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
@@ -105,12 +157,51 @@ const ThankYou = () => {
                             <div className="flex-grow text-center md:text-left">
                                 <h3 className="text-xl font-bold mb-2 text-destructive">Use com cautela</h3>
                                 <p className="text-muted-foreground">
-                                    O Tato é uma ferramenta poderosa de persuasão e comunicação. Use-o de forma ética e responsável.
-                                    <br /><strong>Não nos responsabilizamos pelo excesso de vendas ou promoções.</strong> 😉
+                                    O Tato é um assistente em fase Beta, não um educador. Ele pode cometer erros, então revise sempre antes de enviar.
+                                    <br /><strong>Evite o uso para mensagens ofensivas ou prejudiciais.</strong> 😉
                                 </p>
                             </div>
                         </div>
 
+                    </div>
+                </div>
+            </section>
+
+            {/* Seção FAQ */}
+            <section className="py-20 px-4">
+                <div className="container mx-auto max-w-3xl">
+                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+                        Perguntas <span className="text-primary">Frequentes</span>
+                    </h2>
+
+                    <div className="space-y-4">
+                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                            <h3 className="text-xl font-semibold mb-2">Onde o Tato funciona?</h3>
+                            <p className="text-muted-foreground">
+                                O Tato funciona exclusivamente no <strong>WhatsApp Web</strong> acessado através do navegador <strong>Google Chrome</strong>.
+                            </p>
+                        </div>
+
+                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                            <h3 className="text-xl font-semibold mb-2">O que o Tato analisa?</h3>
+                            <p className="text-muted-foreground">
+                                A extensão analisa <strong>apenas mensagens de texto</strong> que você digita. Áudios, imagens e vídeos não são processados.
+                            </p>
+                        </div>
+
+                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                            <h3 className="text-xl font-semibold mb-2">É seguro usar a versão Beta?</h3>
+                            <p className="text-muted-foreground">
+                                Sim, mas como é uma versão <strong>Beta</strong>, podem ocorrer pequenos bugs. Estamos constantemente melhorando a estabilidade.
+                            </p>
+                        </div>
+
+                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                            <h3 className="text-xl font-semibold mb-2">Dica de uso</h3>
+                            <p className="text-muted-foreground">
+                                Recomendamos <strong>fixar a extensão</strong> na barra do seu navegador para ter acesso rápido às configurações e status.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
