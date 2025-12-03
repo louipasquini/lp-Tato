@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Shield, DollarSign, Lightbulb, Check, Sparkles } from "lucide-react";
+import ScrollReveal from "@/components/ScrollReveal";
 
 const Index = () => {
   return (
@@ -26,73 +27,91 @@ const Index = () => {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-4">
         <div className="container mx-auto max-w-4xl text-center">
-          <div className="inline-block mb-6 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/30 text-destructive text-sm font-medium animate-fade-in">
-            🔴 Evite um crime contra sua própria reputação.
-          </div>
+          <ScrollReveal animation="fade-up" delay={0}>
+            <div className="inline-block mb-6 px-4 py-2 rounded-full bg-destructive/10 border border-destructive/30 text-destructive text-sm font-medium">
+              🔴 Evite um crime contra sua própria reputação.
+            </div>
+          </ScrollReveal>
 
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in animation-delay-200">
-            Você digita. O Tato refina.{" "}
-            <span className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
-              O mundo entende.
-            </span>
-          </h1>
+          <ScrollReveal animation="fade-up" delay={0.2}>
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Você digita. O Tato refina.{" "}
+              <span className="bg-gradient-to-r from-primary to-purple-400 bg-clip-text text-transparent">
+                O mundo entende.
+              </span>
+            </h1>
+          </ScrollReveal>
 
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in animation-delay-400">
-            Sua inteligência social artificial para o WhatsApp Web. O Tato analisa o tom das suas mensagens em tempo real e garante que você nunca mais seja mal interpretado.
-          </p>
+          <ScrollReveal animation="fade-up" delay={0.4}>
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Sua inteligência social artificial para o WhatsApp Web. O Tato analisa o tom das suas mensagens em tempo real e garante que você nunca mais seja mal interpretado.
+            </p>
+          </ScrollReveal>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 animate-fade-in animation-delay-600">
-            <Button
-              size="lg"
-              onClick={() => {
-                document.querySelector("#free-test")?.scrollIntoView({
-                  behavior: "smooth"
-                });
-              }}
-              className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105"
-            >
-              <Sparkles className="mr-2 h-5 w-5" />
-              TESTAR TATO GRÁTIS
-            </Button>
-            <span className="text-sm text-muted-foreground">7 dias de acesso total</span>
-          </div>
+          <ScrollReveal animation="fade-up" delay={0.6}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <Button
+                size="lg"
+                onClick={() => {
+                  document.querySelector("#free-test")?.scrollIntoView({
+                    behavior: "smooth"
+                  });
+                }}
+                className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105"
+              >
+                <Sparkles className="mr-2 h-5 w-5" />
+                TESTAR TATO GRÁTIS
+              </Button>
+              <span className="text-sm text-muted-foreground">7 dias de acesso total</span>
+            </div>
+          </ScrollReveal>
 
-          <div className="flex flex-wrap gap-6 justify-center text-sm text-muted-foreground animate-fade-in animation-delay-600">
-            <span className="flex items-center gap-2">🔒 Privacidade Blindada</span>
-            <span className="flex items-center gap-2">⚡ Instalação em 2 cliques</span>
-            <span className="flex items-center gap-2">🇧🇷 Feito na PunkLab</span>
-          </div>
+          <ScrollReveal animation="fade-in" delay={0.8}>
+            <div className="flex flex-wrap gap-6 justify-center text-sm text-muted-foreground">
+              <span className="flex items-center gap-2">🔒 Privacidade Blindada</span>
+              <span className="flex items-center gap-2">⚡ Instalação em 2 cliques</span>
+              <span className="flex items-center gap-2">🇧🇷 Feito na PunkLab</span>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Seção A Dor */}
       <section className="py-20 px-4 bg-gradient-to-b from-background to-card/30">
         <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              "Eu não quis dizer isso..."
-            </h2>
-            <p className="text-xl text-muted-foreground">A frase mais triste da internet.</p>
-          </div>
+          <ScrollReveal animation="fade-up">
+            <div className="text-center mb-12">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                "Eu não quis dizer isso..."
+              </h2>
+              <p className="text-xl text-muted-foreground">A frase mais triste da internet.</p>
+            </div>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all">
-              <div className="text-3xl mb-4">😬</div>
-              <h3 className="text-xl font-semibold mb-2">O Grosso sem querer</h3>
-              <p className="text-muted-foreground">Foi direto demais e pareceu rude.</p>
-            </div>
+            <ScrollReveal animation="zoom-in" delay={0}>
+              <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all h-full">
+                <div className="text-3xl mb-4">😬</div>
+                <h3 className="text-xl font-semibold mb-2">O Grosso sem querer</h3>
+                <p className="text-muted-foreground">Foi direto demais e pareceu rude.</p>
+              </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all">
-              <div className="text-3xl mb-4">😅</div>
-              <h3 className="text-xl font-semibold mb-2">O Vendedor "Mole"</h3>
-              <p className="text-muted-foreground">Foi educado demais e perdeu a venda.</p>
-            </div>
+            <ScrollReveal animation="zoom-in" delay={0.2}>
+              <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all h-full">
+                <div className="text-3xl mb-4">😅</div>
+                <h3 className="text-xl font-semibold mb-2">O Vendedor "Mole"</h3>
+                <p className="text-muted-foreground">Foi educado demais e perdeu a venda.</p>
+              </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all">
-              <div className="text-3xl mb-4">🤯</div>
-              <h3 className="text-xl font-semibold mb-2">Bloqueio Criativo</h3>
-              <p className="text-muted-foreground">Travou na hora de responder uma mensagem difícil.</p>
-            </div>
+            <ScrollReveal animation="zoom-in" delay={0.4}>
+              <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all h-full">
+                <div className="text-3xl mb-4">🤯</div>
+                <h3 className="text-xl font-semibold mb-2">Bloqueio Criativo</h3>
+                <p className="text-muted-foreground">Travou na hora de responder uma mensagem difícil.</p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -100,37 +119,45 @@ const Index = () => {
       {/* Seção Os Modos */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            Escolha sua <span className="text-primary">máscara ideal.</span>
-          </h2>
+          <ScrollReveal animation="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+              Escolha sua <span className="text-primary">máscara ideal.</span>
+            </h2>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="glass-card p-8 rounded-[--radius] border-primary/70 glow-primary relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary px-4 py-1 rounded-full text-xs font-semibold text-center">
-                O favorito dos usuários
+            <ScrollReveal animation="slide-left" delay={0.2} className="h-full">
+              <div className="glass-card p-8 rounded-[--radius] border-primary/70 glow-primary relative h-full hover:scale-[1.02] transition-transform duration-300">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary px-4 py-1 rounded-full text-xs font-semibold text-center">
+                  O favorito dos usuários
+                </div>
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-3">Modo DIPLOMATA</h3>
+                <p className="text-muted-foreground">Transforma grosseria em educação. Ideal para conflitos e chefes.</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-2xl font-semibold mb-3">Modo DIPLOMATA</h3>
-              <p className="text-muted-foreground">Transforma grosseria em educação. Ideal para conflitos e chefes.</p>
-            </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all">
-              <div className="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mb-4">
-                <DollarSign className="w-6 h-6 text-success" />
+            <ScrollReveal animation="zoom-in" delay={0} className="h-full">
+              <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all h-full hover:scale-[1.02] duration-300">
+                <div className="w-12 h-12 rounded-full bg-success/10 flex items-center justify-center mb-4">
+                  <DollarSign className="w-6 h-6 text-success" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-3">Modo FECHADOR</h3>
+                <p className="text-muted-foreground">Usa gatilhos mentais e Spin Selling. Ideal para SDRs e Vendas.</p>
               </div>
-              <h3 className="text-2xl font-semibold mb-3">Modo FECHADOR</h3>
-              <p className="text-muted-foreground">Usa gatilhos mentais e Spin Selling. Ideal para SDRs e Vendas.</p>
-            </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all">
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-                <Lightbulb className="w-6 h-6 text-primary" />
+            <ScrollReveal animation="slide-right" delay={0.2} className="h-full">
+              <div className="glass-card p-8 rounded-[--radius] hover:border-primary/50 transition-all h-full hover:scale-[1.02] duration-300">
+                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <Lightbulb className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-2xl font-semibold mb-3">Modo CLAREZA</h3>
+                <p className="text-muted-foreground">Remove ironias e metáforas. Ideal para comunicação técnica e direta.</p>
               </div>
-              <h3 className="text-2xl font-semibold mb-3">Modo CLAREZA</h3>
-              <p className="text-muted-foreground">Remove ironias e metáforas. Ideal para comunicação técnica e direta.</p>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -138,183 +165,192 @@ const Index = () => {
       {/* Seção Como Funciona */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            Como funciona?
-          </h2>
+          <ScrollReveal animation="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+              Como funciona?
+            </h2>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-primary">1</span>
+            <ScrollReveal animation="fade-up" delay={0}>
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-primary">1</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Instale a extensão</h3>
+                <p className="text-muted-foreground">2 cliques no Chrome e pronto. Funciona direto no WhatsApp Web.</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Instale a extensão</h3>
-              <p className="text-muted-foreground">2 cliques no Chrome e pronto. Funciona direto no WhatsApp Web.</p>
-            </div>
+            </ScrollReveal>
 
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-primary">2</span>
+            <ScrollReveal animation="fade-up" delay={0.2}>
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-primary">2</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Digite naturalmente</h3>
+                <p className="text-muted-foreground">Escreva como sempre faz. O Tato analisa em tempo real o tom da sua mensagem.</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Digite naturalmente</h3>
-              <p className="text-muted-foreground">Escreva como sempre faz. O Tato analisa em tempo real o tom da sua mensagem.</p>
-            </div>
+            </ScrollReveal>
 
-            <div className="text-center">
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl font-bold text-primary">3</span>
+            <ScrollReveal animation="fade-up" delay={0.4}>
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl font-bold text-primary">3</span>
+                </div>
+                <h3 className="text-xl font-semibold mb-3">Refine e envie</h3>
+                <p className="text-muted-foreground">Escolha o modo ideal e envie a mensagem perfeita. Sem mal-entendidos.</p>
               </div>
-              <h3 className="text-xl font-semibold mb-3">Refine e envie</h3>
-              <p className="text-muted-foreground">Escolha o modo ideal e envie a mensagem perfeita. Sem mal-entendidos.</p>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
-
-
       {/* Seção 7 Dias Grátis */}
       <section className="py-20 px-4 bg-gradient-to-b from-primary/5 to-background" id="free-test">
         <div className="container mx-auto max-w-4xl">
-          <div className="glass-card p-8 rounded-[--radius] border-primary/50 glow-primary text-center overflow-hidden">
-            <div className="inline-block mb-6 px-6 py-3 rounded-full bg-primary/20 border border-primary/50 text-primary text-lg font-bold">
-              🎁 OFERTA ESPECIAL
+          <ScrollReveal animation="zoom-in">
+            <div className="glass-card p-8 rounded-[--radius] border-primary/50 glow-primary text-center overflow-hidden">
+              <div className="inline-block mb-6 px-6 py-3 rounded-full bg-primary/20 border border-primary/50 text-primary text-lg font-bold">
+                🎁 OFERTA ESPECIAL
+              </div>
+
+              <h2 className="text-4xl md:text-6xl font-bold mb-6">
+                <span className="text-primary">7 dias</span> para testar tudo
+              </h2>
+
+              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                Teste todos os modos, envie mensagens ilimitadas e descubra como o Tato transforma sua comunicação.
+                <span className="text-foreground font-semibold"> Sem compromisso. Cancele quando quiser.</span>
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-success mb-1">100%</div>
+                  <div className="text-sm text-muted-foreground">Acesso completo</div>
+                </div>
+                <div className="hidden sm:block w-px h-12 bg-border"></div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-success mb-1">0 dias</div>
+                  <div className="text-sm text-muted-foreground">Para decidir</div>
+                </div>
+                <div className="hidden sm:block w-px h-12 bg-border"></div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-success mb-1">R$ 0</div>
+                  <div className="text-sm text-muted-foreground">Investimento inicial</div>
+                </div>
+              </div>
+
+              <Button
+                size="lg"
+                className="mt-8 text-lg px-6 py-10 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105 max-w-full whitespace-normal break-normal leading-[1.3]"
+                asChild
+              >
+                <Link to="/login">
+                  <Sparkles className="mr-2 h-5 w-5" />
+                  COMEÇAR MEUS 7 DIAS GRÁTIS
+                </Link>
+              </Button>
             </div>
-
-            <h2 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="text-primary">7 dias</span> para testar tudo
-            </h2>
-
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-              Teste todos os modos, envie mensagens ilimitadas e descubra como o Tato transforma sua comunicação.
-              <span className="text-foreground font-semibold"> Sem compromisso. Cancele quando quiser.</span>
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-success mb-1">100%</div>
-                <div className="text-sm text-muted-foreground">Acesso completo</div>
-              </div>
-              <div className="hidden sm:block w-px h-12 bg-border"></div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-success mb-1">0 dias</div>
-                <div className="text-sm text-muted-foreground">Para decidir</div>
-              </div>
-              <div className="hidden sm:block w-px h-12 bg-border"></div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-success mb-1">R$ 0</div>
-                <div className="text-sm text-muted-foreground">Investimento inicial</div>
-              </div>
-            </div>
-
-            <Button
-              size="lg"
-              className="mt-8 text-lg px-6 py-10 bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105 max-w-full whitespace-normal break-normal leading-[1.3]"
-              asChild
-            >
-              <Link to="/login">
-                <Sparkles className="mr-2 h-5 w-5" />
-                COMEÇAR MEUS 7 DIAS GRÁTIS
-              </Link>
-            </Button>
-
-
-
-
-
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Seção Preços */}
       <section className="py-20 px-4 bg-gradient-to-b from-card/30 to-background">
         <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            Quanto vale a sua <span className="text-primary">paz de espírito?</span>
-          </h2>
+          <ScrollReveal animation="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+              Quanto vale a sua <span className="text-primary">paz de espírito?</span>
+            </h2>
+          </ScrollReveal>
 
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {/* Plano Essencial */}
-            <div className="glass-card p-8 rounded-[--radius] flex flex-col">
-              <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-semibold w-fit">
-                🎁 7 dias grátis
+            <ScrollReveal animation="slide-left" delay={0} className="h-full">
+              <div className="glass-card p-8 rounded-[--radius] flex flex-col h-full hover:border-primary/30 transition-colors">
+                <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-xs font-semibold w-fit">
+                  🎁 7 dias grátis
+                </div>
+                <h3 className="text-2xl font-semibold mb-2">ESSENCIAL</h3>
+                <p className="text-muted-foreground mb-6">Para uso pessoal</p>
+
+                <div className="mb-6">
+                  <span className="text-5xl font-bold">R$ 19,90</span>
+                  <span className="text-muted-foreground">/mês</span>
+                </div>
+
+                <ul className="space-y-3 mb-8 flex-grow">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>2.000 mensagens</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Modo Diplomata</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Modo Clareza</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <span>Atalho Ctrl+Enter</span>
+                  </li>
+                </ul>
+
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full border-primary/50 hover:bg-primary/10 hover:border-primary"
+                  asChild
+                >
+                  <Link to="/login?plan=essencial">QUERO TER TATO</Link>
+                </Button>
               </div>
-              <h3 className="text-2xl font-semibold mb-2">ESSENCIAL</h3>
-              <p className="text-muted-foreground mb-6">Para uso pessoal</p>
-
-              <div className="mb-6">
-                <span className="text-5xl font-bold">R$ 19,90</span>
-                <span className="text-muted-foreground">/mês</span>
-              </div>
-
-              <ul className="space-y-3 mb-8 flex-grow">
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>2.000 mensagens</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>Modo Diplomata</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>Modo Clareza</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                  <span>Atalho Ctrl+Enter</span>
-                </li>
-              </ul>
-
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full border-primary/50 hover:bg-primary/10 hover:border-primary"
-                asChild
-              >
-                <Link to="/login?plan=essencial">QUERO TER TATO</Link>
-              </Button>
-            </div>
+            </ScrollReveal>
 
             {/* Plano Profissional */}
-            <div className="glass-card p-8 rounded-[--radius] border-primary/70 glow-primary flex flex-col">
-              <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 border border-primary/50 text-primary text-xs font-semibold w-fit">
-                🎁 7 dias grátis
+            <ScrollReveal animation="slide-right" delay={0.2} className="h-full">
+              <div className="glass-card p-8 rounded-[--radius] border-primary/70 glow-primary flex flex-col h-full hover:scale-[1.02] transition-transform duration-300">
+                <div className="inline-block mb-4 px-3 py-1 rounded-full bg-primary/20 border border-primary/50 text-primary text-xs font-semibold w-fit">
+                  🎁 7 dias grátis
+                </div>
+                <h3 className="text-2xl font-semibold mb-2">PROFISSIONAL</h3>
+                <p className="text-muted-foreground mb-6">Para quem fatura no WhatsApp</p>
+
+                <div className="mb-6">
+                  <span className="text-5xl font-bold text-success">R$ 39,90</span>
+                  <span className="text-muted-foreground">/mês</span>
+                </div>
+
+                <ul className="space-y-3 mb-8 flex-grow">
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                    <span className="font-semibold">6000 MENSAGENS</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                    <span>Todos os Modos</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                    <span>Modo Fechador <span className="text-success">(Exclusivo)</span></span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                    <span>Atalho Ctrl+Enter</span>
+                  </li>
+                </ul>
+
+                <Button
+                  size="lg"
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105"
+                  asChild
+                >
+                  <Link to="/login?plan=profissional">QUERO VENDER MAIS</Link>
+                </Button>
               </div>
-              <h3 className="text-2xl font-semibold mb-2">PROFISSIONAL</h3>
-              <p className="text-muted-foreground mb-6">Para quem fatura no WhatsApp</p>
-
-              <div className="mb-6">
-                <span className="text-5xl font-bold text-success">R$ 39,90</span>
-                <span className="text-muted-foreground">/mês</span>
-              </div>
-
-              <ul className="space-y-3 mb-8 flex-grow">
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                  <span className="font-semibold">6000 MENSAGENS</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                  <span>Todos os Modos</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                  <span>Modo Fechador <span className="text-success">(Exclusivo)</span></span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-                  <span>Atalho Ctrl+Enter</span>
-                </li>
-              </ul>
-
-              <Button
-                size="lg"
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground glow-primary transition-all hover:scale-105"
-                asChild
-              >
-                <Link to="/login?plan=profissional">QUERO VENDER MAIS</Link>
-              </Button>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -322,38 +358,48 @@ const Index = () => {
       {/* Seção FAQ */}
       <section className="py-20 px-4">
         <div className="container mx-auto max-w-3xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-            Perguntas <span className="text-primary">Frequentes</span>
-          </h2>
+          <ScrollReveal animation="fade-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+              Perguntas <span className="text-primary">Frequentes</span>
+            </h2>
+          </ScrollReveal>
 
           <div className="space-y-4">
-            <div className="glass-card p-6 rounded-[--radius] border-primary/30">
-              <h3 className="text-xl font-semibold mb-2">Onde o Tato funciona?</h3>
-              <p className="text-muted-foreground">
-                O Tato funciona exclusivamente no <strong>WhatsApp Web</strong> acessado através do navegador <strong>Google Chrome</strong>.
-              </p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={0}>
+              <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                <h3 className="text-xl font-semibold mb-2">Onde o Tato funciona?</h3>
+                <p className="text-muted-foreground">
+                  O Tato funciona exclusivamente no <strong>WhatsApp Web</strong> acessado através do navegador <strong>Google Chrome</strong>.
+                </p>
+              </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-6 rounded-[--radius] border-primary/30">
-              <h3 className="text-xl font-semibold mb-2">O que o Tato analisa?</h3>
-              <p className="text-muted-foreground">
-                A extensão analisa <strong>apenas mensagens de texto</strong> que você digita. Áudios, imagens e vídeos não são processados.
-              </p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={0.1}>
+              <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                <h3 className="text-xl font-semibold mb-2">O que o Tato analisa?</h3>
+                <p className="text-muted-foreground">
+                  A extensão analisa <strong>apenas mensagens de texto</strong> que você digita. Áudios, imagens e vídeos não são processados.
+                </p>
+              </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-6 rounded-[--radius] border-primary/30">
-              <h3 className="text-xl font-semibold mb-2">É seguro usar a versão Beta?</h3>
-              <p className="text-muted-foreground">
-                Sim, mas como é uma versão <strong>Beta</strong>, podem ocorrer pequenos bugs. Estamos constantemente melhorando a estabilidade.
-              </p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={0.2}>
+              <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                <h3 className="text-xl font-semibold mb-2">É seguro usar a versão Beta?</h3>
+                <p className="text-muted-foreground">
+                  Sim, mas como é uma versão <strong>Beta</strong>, podem ocorrer pequenos bugs. Estamos constantemente melhorando a estabilidade.
+                </p>
+              </div>
+            </ScrollReveal>
 
-            <div className="glass-card p-6 rounded-[--radius] border-primary/30">
-              <h3 className="text-xl font-semibold mb-2">Dica de uso</h3>
-              <p className="text-muted-foreground">
-                Recomendamos <strong>fixar a extensão</strong> na barra do seu navegador para ter acesso rápido às configurações e status.
-              </p>
-            </div>
+            <ScrollReveal animation="fade-up" delay={0.3}>
+              <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                <h3 className="text-xl font-semibold mb-2">Dica de uso</h3>
+                <p className="text-muted-foreground">
+                  Recomendamos <strong>fixar a extensão</strong> na barra do seu navegador para ter acesso rápido às configurações e status.
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
