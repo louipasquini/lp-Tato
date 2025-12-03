@@ -18,7 +18,7 @@ const Index = () => {
               <Link to="/login">Entrar</Link>
             </Button>
             <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary">
-              Instalar no Chrome
+              Instalar
             </Button>
           </div>
         </div>
