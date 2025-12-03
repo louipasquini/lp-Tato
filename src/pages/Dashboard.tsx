@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+// Ajuste nos imports para ./ assumindo que os arquivos estão na mesma pasta na visualização
 import { useAuth } from "../contexts/AuthContext";
-import { deleteAccount, API_ENDPOINTS, fetchWithAuth } from "../lib/api";
+import { deleteAccount, cancelSubscription, API_ENDPOINTS, fetchWithAuth } from "../lib/api";
 import { 
   LogOut, 
   User, 
@@ -19,7 +20,8 @@ import {
   Loader2,
   Trash2,
   X,
-  ExternalLink
+  ExternalLink,
+  Ban
 } from "lucide-react";
 import {
   AlertDialog,
@@ -43,7 +45,9 @@ const Dashboard = () => {
   
   const [deleteConfirmation, setDeleteConfirmation] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
+  
+  // Estado para controle do cancelamento de assinatura
+  const [isCanceling, setIsCanceling] = useState(false);
   
   const DELETE_CONFIRMATION_TEXT = "DELETAR MINHA CONTA";
 
@@ -65,25 +69,21 @@ const Dashboard = () => {
     messagesLimit: dashboardData?.usage?.limit || 1, 
   };
 
-  const handleStripePortal = async () => {
-    setIsRedirecting(true);
+  const isFreeOrTrial = subscriptionData.plan.includes('Teste') || subscriptionData.plan.includes('Grátis') || subscriptionData.status === 'Inativo';
+
+  // Nova função para cancelar assinatura diretamente
+  const handleCancelSubscription = async () => {
+    setIsCanceling(true);
     try {
-      const response: any = await fetchWithAuth(API_ENDPOINTS.PAYMENT.PORTAL, {
-        method: "POST",
-      });
-      
-      if (response && response.url) {
-        window.location.href = response.url;
-      } else {
-        alert("Erro ao redirecionar para o Stripe.");
-        setIsRedirecting(false);
-        setShowCancelDialog(false);
-      }
-    } catch (error) {
-      console.error("Erro ao acessar portal:", error);
-      alert("Erro de conexão. Tente novamente.");
-      setIsRedirecting(false);
+      await cancelSubscription();
+      await refreshDashboard(); // Atualiza os dados na tela para refletir o cancelamento
+      alert("Sua assinatura foi cancelada com sucesso.");
       setShowCancelDialog(false);
+    } catch (error: any) {
+      console.error("Erro ao cancelar assinatura:", error);
+      alert(error.message || "Erro ao cancelar assinatura. Tente novamente.");
+    } finally {
+      setIsCanceling(false);
     }
   };
 
@@ -228,8 +228,8 @@ const Dashboard = () => {
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-sm text-muted-foreground">Status</span>
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="h-4 w-4 text-success" />
-                      <span className="font-semibold text-success capitalize">{subscriptionData.status}</span>
+                      <CheckCircle2 className={`h-4 w-4 ${subscriptionData.status === 'Ativo' ? 'text-success' : 'text-muted-foreground'}`} />
+                      <span className={`font-semibold capitalize ${subscriptionData.status === 'Ativo' ? 'text-success' : 'text-muted-foreground'}`}>{subscriptionData.status}</span>
                     </div>
                   </div>
                   <div className="flex items-center justify-between mb-2">
@@ -319,62 +319,67 @@ const Dashboard = () => {
             </Card>
           </div>
 
-          {/* Seção de Cancelamento */}
-          <Card className="glass-card border-destructive/30 mt-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2 text-destructive">
-                <Settings className="h-5 w-5" />
-                Gerenciar Assinatura
-              </CardTitle>
-              <CardDescription>
-                Cancele sua assinatura ou gerencie seus dados de pagamento no Stripe
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground mb-4">
-                Ao cancelar, você continuará tendo acesso até o final do período pago ({subscriptionData.nextBilling}). 
-                Você será redirecionado para o portal seguro do Stripe.
-              </p>
-              <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
-                <AlertDialogTrigger asChild>
-                  <Button 
-                    variant="destructive"
-                    className="w-full sm:w-auto"
-                  >
-                    Gerenciar / Cancelar
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Acessar Portal do Cliente?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Você será redirecionado para o portal seguro do Stripe, onde poderá cancelar sua assinatura, alterar seu cartão de crédito ou ver seu histórico de cobranças.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Voltar</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleStripePortal}
-                      disabled={isRedirecting}
-                      className="bg-primary text-primary-foreground hover:bg-primary/90"
+          {/* Seção de Cancelamento - Modificada para API direta */}
+          {!isFreeOrTrial && (
+            <Card className="glass-card border-destructive/30 mt-6">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-destructive">
+                  <Settings className="h-5 w-5" />
+                  Gerenciar Assinatura
+                </CardTitle>
+                <CardDescription>
+                  Cancele sua assinatura atual se desejar parar as cobranças.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Ao cancelar, sua assinatura será encerrada imediatamente e você não será cobrado no próximo ciclo.
+                </p>
+                <AlertDialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+                  <AlertDialogTrigger asChild>
+                    <Button 
+                      variant="destructive"
+                      className="w-full sm:w-auto"
                     >
-                      {isRedirecting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Redirecionando...
-                        </>
-                      ) : (
-                        <>
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          Ir para o Stripe
-                        </>
-                      )}
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </CardContent>
-          </Card>
+                      Cancelar Assinatura
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Cancelar Assinatura?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Tem certeza que deseja cancelar sua assinatura do plano {subscriptionData.plan}? 
+                        Você perderá os benefícios exclusivos e voltará para o plano gratuito.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel disabled={isCanceling}>Voltar</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleCancelSubscription();
+                        }}
+                        disabled={isCanceling}
+                        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      >
+                        {isCanceling ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Cancelando...
+                          </>
+                        ) : (
+                          <>
+                            <Ban className="mr-2 h-4 w-4" />
+                            Sim, Cancelar
+                          </>
+                        )}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Seção de Deletar Conta */}
           <Card className="glass-card border-destructive/50 mt-6 bg-destructive/5">

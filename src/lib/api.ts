@@ -54,6 +54,7 @@ export const API_ENDPOINTS = {
   },
   PAYMENT: {
     PORTAL: `${API_BASE_URL}/tato/v2/payment/customer-portal`,
+    CANCEL: `${API_BASE_URL}/tato/v2/payment/cancel-subscription`, // Novo endpoint
   }
 };
 
@@ -95,5 +96,12 @@ export const fetchDashboardData = async () => {
 export const deleteAccount = async () => {
   return fetchWithAuth(API_ENDPOINTS.USER.DELETE, {
     method: "DELETE",
+  });
+};
+
+// Nova função para cancelar assinatura
+export const cancelSubscription = async () => {
+  return fetchWithAuth(API_ENDPOINTS.PAYMENT.CANCEL, {
+    method: "POST",
   });
 };
