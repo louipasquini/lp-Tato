@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     // Apenas define loading se não tiver dados ainda, para evitar "piscar" em atualizações
-    if (!dashboardData) setIsLoading(true);
+    // if (!dashboardData) setIsLoading(true); // REMOVIDO: Causa loop infinito com ProtectedRoute
 
     try {
       const data = await fetchDashboardData();
