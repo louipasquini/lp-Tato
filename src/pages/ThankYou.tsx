@@ -1,10 +1,47 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Download, Pin, LogIn, AlertTriangle, CheckCircle } from "lucide-react";
+import { motion } from "framer-motion";
 
 const ThankYou = () => {
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                stiffness: 50,
+                damping: 15
+            }
+        }
+    };
+
+    const cardHoverVariants = {
+        hover: {
+            y: -5,
+            boxShadow: "0 10px 30px -10px rgba(0,0,0,0.1)",
+            transition: {
+                type: "spring",
+                stiffness: 300,
+                damping: 20
+            }
+        }
+    };
+
     return (
-        <div className="min-h-screen w-full bg-background text-foreground">
+        <div className="min-h-screen w-full bg-background text-foreground overflow-x-hidden">
             {/* Navbar */}
             <nav className="fixed top-0 left-0 right-0 z-50 glass-card border-b">
                 <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -22,23 +59,32 @@ const ThankYou = () => {
 
             {/* Content */}
             <section className="pt-32 pb-20 px-4">
-                <div className="container mx-auto max-w-4xl">
-                    <div className="text-center mb-12">
-                        <div className="inline-block mb-6 px-4 py-2 rounded-full bg-success/10 border border-success/30 text-success text-sm font-medium animate-fade-in">
+                <motion.div
+                    className="container mx-auto max-w-4xl"
+                    initial="hidden"
+                    animate="visible"
+                    variants={containerVariants}
+                >
+                    <motion.div className="text-center mb-12" variants={itemVariants}>
+                        <div className="inline-block mb-6 px-4 py-2 rounded-full bg-success/10 border border-success/30 text-success text-sm font-medium">
                             <CheckCircle className="w-4 h-4 inline-block mr-2" />
                             Assinatura confirmada com sucesso!
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in animation-delay-200">
+                        <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
                             Bem-vindo ao <span className="text-primary">Tato.</span>
                         </h1>
-                        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto animate-fade-in animation-delay-400">
+                        <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
                             Siga os passos abaixo para começar a transformar sua comunicação no WhatsApp Web.
                         </p>
-                    </div>
+                    </motion.div>
 
-                    <div className="grid gap-8 max-w-3xl mx-auto">
+                    <motion.div className="grid gap-8 max-w-3xl mx-auto" variants={containerVariants}>
                         {/* Passo 1 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-600">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">1</span>
                             </div>
@@ -54,10 +100,14 @@ const ThankYou = () => {
                                     </a>
                                 </Button>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 2 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-800">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">2</span>
                             </div>
@@ -76,10 +126,14 @@ const ThankYou = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 3 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">3</span>
                             </div>
@@ -95,10 +149,14 @@ const ThankYou = () => {
                                     </Link>
                                 </Button>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 4 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">4</span>
                             </div>
@@ -108,10 +166,14 @@ const ThankYou = () => {
                                     Selecione o modelo ideal (Diplomata, Fechador ou Clareza) para cada situação.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 5 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">5</span>
                             </div>
@@ -121,10 +183,14 @@ const ThankYou = () => {
                                     Escreva seu rascunho e deixe o Tato polir suas palavras antes de enviar.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 6 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">6</span>
                             </div>
@@ -134,10 +200,14 @@ const ThankYou = () => {
                                     Você tem total controle para habilitar ou desabilitar o Tato quando preferir.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 7 */}
-                        <div className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1000">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-primary/30 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
                                 <span className="text-2xl font-bold text-primary">7</span>
                             </div>
@@ -147,10 +217,14 @@ const ThankYou = () => {
                                     Desative o Tato em conversas específicas (como com a família) e mantenha-o ativo para o trabalho.
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
                         {/* Passo 4 - Aviso */}
-                        <div className="glass-card p-8 rounded-[--radius] border-destructive/30 bg-destructive/5 flex flex-col md:flex-row gap-6 items-center animate-fade-in animation-delay-1200">
+                        <motion.div
+                            className="glass-card p-8 rounded-[--radius] border-destructive/30 bg-destructive/5 flex flex-col md:flex-row gap-6 items-center"
+                            variants={itemVariants}
+                            whileHover="hover"
+                        >
                             <div className="w-16 h-16 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
                                 <AlertTriangle className="w-8 h-8 text-destructive" />
                             </div>
@@ -161,49 +235,71 @@ const ThankYou = () => {
                                     <br /><strong>Evite o uso para mensagens ofensivas ou prejudiciais.</strong> 😉
                                 </p>
                             </div>
-                        </div>
+                        </motion.div>
 
-                    </div>
-                </div>
+                    </motion.div>
+                </motion.div>
             </section>
 
             {/* Seção FAQ */}
             <section className="py-20 px-4">
-                <div className="container mx-auto max-w-3xl">
-                    <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
+                <motion.div
+                    className="container mx-auto max-w-3xl"
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, margin: "-100px" }}
+                    variants={containerVariants}
+                >
+                    <motion.h2 className="text-4xl md:text-5xl font-bold text-center mb-12" variants={itemVariants}>
                         Perguntas <span className="text-primary">Frequentes</span>
-                    </h2>
+                    </motion.h2>
 
-                    <div className="space-y-4">
-                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                    <motion.div className="space-y-4" variants={containerVariants}>
+                        <motion.div
+                            className="glass-card p-6 rounded-[--radius] border-primary/30"
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.01, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                        >
                             <h3 className="text-xl font-semibold mb-2">Onde o Tato funciona?</h3>
                             <p className="text-muted-foreground">
                                 O Tato funciona exclusivamente no <strong>WhatsApp Web</strong> acessado através do navegador <strong>Google Chrome</strong>.
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                        <motion.div
+                            className="glass-card p-6 rounded-[--radius] border-primary/30"
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.01, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                        >
                             <h3 className="text-xl font-semibold mb-2">O que o Tato analisa?</h3>
                             <p className="text-muted-foreground">
                                 A extensão analisa <strong>apenas mensagens de texto</strong> que você digita. Áudios, imagens e vídeos não são processados.
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                        <motion.div
+                            className="glass-card p-6 rounded-[--radius] border-primary/30"
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.01, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                        >
                             <h3 className="text-xl font-semibold mb-2">É seguro usar a versão Beta?</h3>
                             <p className="text-muted-foreground">
                                 Sim, mas como é uma versão <strong>Beta</strong>, podem ocorrer pequenos bugs. Estamos constantemente melhorando a estabilidade.
                             </p>
-                        </div>
+                        </motion.div>
 
-                        <div className="glass-card p-6 rounded-[--radius] border-primary/30">
+                        <motion.div
+                            className="glass-card p-6 rounded-[--radius] border-primary/30"
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.01, transition: { type: "spring", stiffness: 400, damping: 10 } }}
+                        >
                             <h3 className="text-xl font-semibold mb-2">Dica de uso</h3>
                             <p className="text-muted-foreground">
                                 Recomendamos <strong>fixar a extensão</strong> na barra do seu navegador para ter acesso rápido às configurações e status.
                             </p>
-                        </div>
-                    </div>
-                </div>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
             </section>
 
             {/* Footer */}
@@ -224,3 +320,4 @@ const ThankYou = () => {
 };
 
 export default ThankYou;
+
