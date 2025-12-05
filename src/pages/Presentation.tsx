@@ -247,18 +247,18 @@ const SlideContent = ({ data, metrics }: { data: any, metrics?: MetricsResponse 
         case "cover":
             return (
                 <div className="flex flex-col items-center justify-center h-full text-center mt-8">
-                    <div className="w-40 h-40 flex items-center justify-center mb-8 animate-bounce">
+                    <div className="w-24 h-24 md:w-40 md:h-40 flex items-center justify-center mb-6 md:mb-8 animate-bounce">
                         <img src="/icon.png" alt="Tato Logo" className="w-full h-full object-contain drop-shadow-[0_0_30px_rgba(168,85,247,0.5)]" />
                     </div>
-                    <h2 className="text-2xl md:text-3xl font-light text-primary/80 tracking-wider mb-2">PUNKLAB APRESENTA</h2>
-                    <h1 className="text-6xl md:text-8xl font-bold text-foreground mb-6 tracking-tighter drop-shadow-lg">TATO</h1>
+                    <h2 className="text-xl md:text-3xl font-light text-primary/80 tracking-wider mb-2">PUNKLAB APRESENTA</h2>
+                    <h1 className="text-5xl md:text-8xl font-bold text-foreground mb-6 tracking-tighter drop-shadow-lg">TATO</h1>
                     <div className="h-1 w-24 bg-gradient-to-r from-transparent via-success to-transparent mb-6"></div>
                     <p className="text-xl text-muted-foreground italic">"{data.content.tagline}"</p>
                 </div>
             );
         case "problem":
             return (
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mt-8 md:mt-12">
                     {data.content.points.map((pt, idx) => (
                         <div key={idx} className="bg-destructive/10 border border-destructive/20 p-6 rounded-xl flex flex-col items-center text-center">
                             <div className="mb-4 text-destructive">
@@ -308,23 +308,23 @@ const SlideContent = ({ data, metrics }: { data: any, metrics?: MetricsResponse 
             return (
                 <div className="flex flex-col items-center justify-center h-full mt-8">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-                        <div className="flex flex-col items-center justify-center p-8 glass-card rounded-2xl relative overflow-hidden">
+                        <div className="flex flex-col items-center justify-center p-6 md:p-8 glass-card rounded-2xl relative overflow-hidden">
                             <div className={`absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-xl`}></div>
-                            <h3 className={`text-5xl font-bold mb-2 text-primary`}>
+                            <h3 className={`text-3xl md:text-5xl font-bold mb-2 text-primary`}>
                                 {metrics ? (metrics.mau >= 1000000 ? `${(metrics.mau / 1000000).toFixed(1)}M` : metrics.mau >= 1000 ? `${(metrics.mau / 1000).toFixed(1)}k+` : metrics.mau) : '...'}
                             </h3>
                             <p className="text-muted-foreground uppercase tracking-widest text-xs font-bold">Usuários Ativos (MAU)</p>
                         </div>
-                        <div className="flex flex-col items-center justify-center p-8 glass-card rounded-2xl relative overflow-hidden">
+                        <div className="flex flex-col items-center justify-center p-6 md:p-8 glass-card rounded-2xl relative overflow-hidden">
                             <div className={`absolute -right-4 -top-4 w-24 h-24 bg-success/10 rounded-full blur-xl`}></div>
-                            <h3 className={`text-5xl font-bold mb-2 text-success`}>
+                            <h3 className={`text-3xl md:text-5xl font-bold mb-2 text-success`}>
                                 {metrics ? (metrics.totalMessagesRefined >= 1000000 ? `${(metrics.totalMessagesRefined / 1000000).toFixed(1)}M` : metrics.totalMessagesRefined >= 1000 ? `${(metrics.totalMessagesRefined / 1000).toFixed(1)}k+` : metrics.totalMessagesRefined) : '...'}
                             </h3>
                             <p className="text-muted-foreground uppercase tracking-widest text-xs font-bold">Mensagens Refinadas</p>
                         </div>
-                        <div className="flex flex-col items-center justify-center p-8 glass-card rounded-2xl relative overflow-hidden">
+                        <div className="flex flex-col items-center justify-center p-6 md:p-8 glass-card rounded-2xl relative overflow-hidden">
                             <div className={`absolute -right-4 -top-4 w-24 h-24 bg-primary/10 rounded-full blur-xl`}></div>
-                            <h3 className={`text-5xl font-bold mb-2 text-primary`}>{metrics ? `${metrics.retentionD30}%` : '...'}</h3>
+                            <h3 className={`text-3xl md:text-5xl font-bold mb-2 text-primary`}>{metrics ? `${metrics.retentionD30}%` : '...'}</h3>
                             <p className="text-muted-foreground uppercase tracking-widest text-xs font-bold">Retenção D30</p>
                         </div>
                     </div>
@@ -365,7 +365,7 @@ const SlideContent = ({ data, metrics }: { data: any, metrics?: MetricsResponse 
             );
         case "market":
             return (
-                <div className="relative w-full h-64 md:h-80 mt-8 bg-card/30 rounded-2xl border border-border overflow-hidden flex items-center justify-center p-8">
+                <div className="relative w-full h-auto md:h-80 mt-4 md:mt-8 bg-card/30 rounded-2xl border border-border overflow-hidden flex items-center justify-center p-6 md:p-8">
                     {/* Abstract Map/Network Background */}
                     <div className="absolute inset-0 opacity-20">
                         <svg width="100%" height="100%">
@@ -376,16 +376,16 @@ const SlideContent = ({ data, metrics }: { data: any, metrics?: MetricsResponse 
                         </svg>
                     </div>
 
-                    <div className="z-10 grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
-                        <div className="space-y-4">
-                            <h3 className="text-primary font-bold uppercase tracking-widest text-sm">O Hoje</h3>
-                            <p className="text-2xl font-light">Monetização <span className="text-foreground font-bold">B2C SaaS</span></p>
-                            <p className="text-muted-foreground text-sm">Foco em tração e conversão de usuários profissionais.</p>
+                    <div className="z-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full max-w-4xl py-4 md:py-0">
+                        <div className="space-y-2 md:space-y-4">
+                            <h3 className="text-primary font-bold uppercase tracking-widest text-xs md:text-sm">O Hoje</h3>
+                            <p className="text-xl md:text-2xl font-light">Monetização <span className="text-foreground font-bold">B2C SaaS</span></p>
+                            <p className="text-muted-foreground text-xs md:text-sm">Foco em tração e conversão de usuários profissionais.</p>
                         </div>
-                        <div className="space-y-4 md:border-l md:border-primary/30 md:pl-8">
-                            <h3 className="text-success font-bold uppercase tracking-widest text-sm">O Amanhã</h3>
-                            <p className="text-2xl font-light">Contratos <span className="text-foreground font-bold">B2B & Enterprise</span></p>
-                            <p className="text-muted-foreground text-sm">Padronização de tom para equipes inteiras.</p>
+                        <div className="space-y-2 md:space-y-4 md:border-l md:border-primary/30 md:pl-8">
+                            <h3 className="text-success font-bold uppercase tracking-widest text-xs md:text-sm">O Amanhã</h3>
+                            <p className="text-xl md:text-2xl font-light">Contratos <span className="text-foreground font-bold">B2B & Enterprise</span></p>
+                            <p className="text-muted-foreground text-xs md:text-sm">Padronização de tom para equipes inteiras.</p>
                         </div>
                     </div>
                 </div>
@@ -426,7 +426,7 @@ const SlideContent = ({ data, metrics }: { data: any, metrics?: MetricsResponse 
             return (
                 <div className="flex flex-col items-center mt-8 w-full max-w-4xl mx-auto">
                     <div className="relative mb-8 group cursor-default">
-                        <div className="text-7xl font-bold text-foreground tracking-tighter drop-shadow-lg blur-md select-none opacity-50 transition duration-500">
+                        <div className="text-5xl md:text-7xl font-bold text-foreground tracking-tighter drop-shadow-lg blur-md select-none opacity-50 transition duration-500">
                             {data.content.amount}
                         </div>
                         <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
@@ -479,7 +479,7 @@ const SlideContent = ({ data, metrics }: { data: any, metrics?: MetricsResponse 
                 <div className="flex flex-col items-center justify-center h-full text-center mt-12">
                     <div className="relative mb-8">
                         <div className="absolute -inset-8 bg-primary/30 rounded-full blur-3xl"></div>
-                        <h1 className="relative text-7xl md:text-9xl font-extrabold tracking-tighter text-foreground">TATO</h1>
+                        <h1 className="relative text-5xl md:text-9xl font-extrabold tracking-tighter text-foreground">TATO</h1>
                     </div>
                     <p className="text-xl md:text-2xl font-light text-muted-foreground max-w-2xl">
                         "Você digita. O Tato refina. O mundo entende."
@@ -588,10 +588,10 @@ export default function Presentation() {
             </div>
 
             {/* Main Container */}
-            <main className="relative z-10 w-full max-w-6xl aspect-[16/9] flex flex-col">
+            <main className="relative z-10 w-full max-w-6xl min-h-screen md:min-h-0 md:aspect-[16/9] flex flex-col">
 
                 {/* Slide Content Wrapper */}
-                <div className="flex-1 flex flex-col justify-center p-8 md:p-12 relative overflow-hidden">
+                <div className="flex-1 flex flex-col justify-center p-4 md:p-12 relative overflow-hidden">
 
                     <AnimatePresence initial={false} custom={direction} mode="wait">
                         <motion.div
@@ -610,9 +610,9 @@ export default function Presentation() {
                             {/* Header */}
                             {slide.content.type !== 'closing' && slide.content.type !== 'cover' && (
                                 <header className="mb-8 border-l-4 border-primary pl-6">
-                                    <h2 className="text-sm uppercase tracking-[0.2em] text-primary mb-1">Slide {slide.id < 10 ? `0${slide.id}` : slide.id}</h2>
-                                    <h1 className="text-4xl md:text-5xl font-bold mb-2">{slide.title}</h1>
-                                    <p className="text-xl text-muted-foreground font-light">{slide.subtitle}</p>
+                                    <h2 className="text-xs md:text-sm uppercase tracking-[0.2em] text-primary mb-1">Slide {slide.id < 10 ? `0${slide.id}` : slide.id}</h2>
+                                    <h1 className="text-3xl md:text-5xl font-bold mb-2">{slide.title}</h1>
+                                    <p className="text-lg md:text-xl text-muted-foreground font-light">{slide.subtitle}</p>
                                 </header>
                             )}
 
