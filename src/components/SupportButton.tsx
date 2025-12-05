@@ -6,10 +6,15 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip";
 
+import { useLocation } from "react-router-dom";
+
 const SupportButton = () => {
+    const location = useLocation();
     const whatsappNumber = "5513988540316";
     const message = encodeURIComponent("Olá! Preciso de ajuda com o TATO.");
     const whatsappLink = `https://wa.me/${whatsappNumber}?text=${message}`;
+
+    if (location.pathname === '/presentation') return null;
 
     return (
         <div className="fixed bottom-6 right-6 z-50">

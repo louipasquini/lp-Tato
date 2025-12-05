@@ -13,6 +13,7 @@ import Checkout from "./pages/Checkout";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ThankYou from "./pages/ThankYou";
+import Presentation from "./pages/Presentation";
 
 const queryClient = new QueryClient();
 
@@ -22,13 +23,14 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <SupportButton />
         <BrowserRouter>
+          <SupportButton />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/privacidade" element={<Privacy />} />
             <Route path="/login" element={<Login />} />
             <Route path="/thank-you" element={<ThankYou />} />
+            <Route path="/presentation" element={<Presentation />} />
             <Route
               path="/checkout"
               element={
