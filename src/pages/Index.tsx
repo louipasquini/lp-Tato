@@ -17,8 +17,8 @@ const Index = () => {
             <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary" asChild>
               <Link to="/login">Entrar</Link>
             </Button>
-            <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary">
-              Instalar
+            <Button variant="outline" className="border-primary/50 hover:bg-primary/10 hover:border-primary" asChild>
+              <a href="https://chromewebstore.google.com/detail/tato-sua-melhor-vers%C3%A3o-em/jkeflcjglbnapakmmhcabdgokdjbgpgh" target="_blank" rel="noopener noreferrer">Instalar</a>
             </Button>
           </div>
         </div>
